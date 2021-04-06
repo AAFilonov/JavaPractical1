@@ -1,6 +1,4 @@
-package lib.Hash.HashChains;
-
-import static org.junit.jupiter.api.Assertions.*;
+package lib.Hash.Chains;
 
 class ItemListTest {
 

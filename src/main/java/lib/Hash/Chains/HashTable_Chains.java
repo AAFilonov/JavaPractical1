@@ -1,8 +1,8 @@
-package lib.Hash.HashChains;
+package lib.Hash.Chains;
 
 import lib.Hash.DataItem;
 
-public class HashTable implements lib.Hash.HashTable {
+public class HashTable_Chains implements lib.Hash.HashTable {
     private final int maxSize;
     ItemList[] hashList;
 
@@ -29,16 +29,17 @@ public class HashTable implements lib.Hash.HashTable {
         return   hashList[index].Delete(key);
 
     }
-
-    //вспомогательные методы
-    int GetMaxSize(){
+    public  int  GetMaxSize(){
         return maxSize;
     }
 
-    HashTable(int maxSize){
+    //конструкторы
+    HashTable_Chains(int maxSize){
         this.maxSize = maxSize;
         hashList = new ItemList[maxSize];
 
     }
+
+
 
 }

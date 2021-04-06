@@ -1,16 +1,13 @@
-package lib.Hash.HashDouble;
+package lib.Hash.Double;
 
 import lib.Hash.DataItem;
 
-public class HashTable implements lib.Hash.HashTable {
+public class HashTable_Double implements lib.Hash.HashTable {
     private final int maxSize;
     DataItem[] hashArray;
     DataItem nonItem;
     private final int SecondHashConstant;
 
-    //операции хэш-таблицы
-
-    //преобразует значение ключа в индекс
 
     public int HashFunc(int key) {
         return key % maxSize;
@@ -18,66 +15,83 @@ public class HashTable implements lib.Hash.HashTable {
 
     private int HashFunc2(int key) {
 
-        return SecondHashConstant - (key %SecondHashConstant);
+        return SecondHashConstant - (key % SecondHashConstant);
     }
+
     public void Insert(DataItem dataItem) {
-        int index = HashFunc(dataItem.GetKey());
-        int i=0;
-        int step = SecondHashConstant - (dataItem.GetKey() %SecondHashConstant);
-        while ( hashArray[(index+step*i)%maxSize]!=null){
-            i++;
-
-        }
-        hashArray[(index+step*i)%maxSize] = dataItem;
-
+        int index = GetNextEmptyCellIndex(dataItem.GetKey());
+        hashArray[index] = dataItem;
     }
-
+    //TODO избавиться от возврата -1
     public DataItem Find(int key) {
-        int index = HashFunc(key);
-        int i=0;
-        int step = HashFunc2(key);
-
-        while ( hashArray[(index+step*i)%maxSize]!=null){
-            if(hashArray[(index+step*i)%maxSize].GetKey()==key) //сравниваем ключ в ячейке с искомым
-            {
-                return   hashArray[(index+step*i)%maxSize];
-            }
-
-            i++;
-        }
-        //уткнулись в пустую ячейку = элемент не нашелся
-        return null;
+        int index = GetCellIndexByKey(key);
+        if (index != -1)
+            return hashArray[index];
+        else
+            return null;
     }
-
     public DataItem Delete(int key) {
-        int index = HashFunc(key);
-        int i=0;
-        int step = SecondHashConstant - (key %SecondHashConstant);
-
-        while ( hashArray[(index+step*i)%maxSize]!=null){
-            if(hashArray[(index+step*i)%maxSize].GetKey()==key) //сравниваем ключ в ячейке с искомым
-            {
-                DataItem tmp = hashArray[(index+step*i)%maxSize];
-                hashArray[(index+step*i)%maxSize] = nonItem;
-                return tmp;
-            }
-
-            i++;
+        int index = GetCellIndexByKey(key);
+        if (index != -1) {
+            DataItem cell = hashArray[index];
+            DeleteCell(index);
+            return cell;
         }
-        //уткнулись в пустую ячейку = элемент не нашелся
-        return null;
+        else
+            return null;
     }
 
-    //вспомогательные методы
-    int GetMaxSize(){
+    public int GetMaxSize() {
         return maxSize;
     }
 
-    HashTable(int maxSize){
+    //конструкторы
+    public HashTable_Double(int maxSize) {
         this.maxSize = maxSize;
         hashArray = new DataItem[maxSize];
-        nonItem= new DataItem(-1,"No data");
-        SecondHashConstant = maxSize/2;
+        nonItem = new DataItem(-1, "No data");
+        SecondHashConstant = maxSize / 2;
+    }
+
+    //вспомогательные методы
+    private int GetNextEmptyCellIndex(int key) {
+
+        int beginIndex = HashFunc(key);
+        int step = HashFunc2(key);
+
+        int i = 0;
+        int cellIndex = (beginIndex + step * i) % this.maxSize;
+
+        i++;
+        cellIndex = (beginIndex + step * i) % this.maxSize;
+        while (hashArray[cellIndex] != null) {
+            i++;
+            cellIndex = (beginIndex + step * i) % this.maxSize;
+        }
+
+        return cellIndex;
+    }
+
+    private int GetCellIndexByKey(int key) {
+        int beginIndex = HashFunc(key);
+        int step = HashFunc2(key);
+
+        int i = 0;
+        int cellIndex = (beginIndex + step * i) % this.maxSize;
+
+        while (hashArray[cellIndex] != null) {
+            if (hashArray[cellIndex].GetKey() == key) return cellIndex;
+            else {
+                i++;
+                cellIndex = (beginIndex + step * i) % this.maxSize;
+            }
+        }
+
+        return -1;
+    }
+
+    private void DeleteCell(int index) {
+        hashArray[index] = nonItem;
     }
 
 }

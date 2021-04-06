@@ -1,4 +1,4 @@
-package lib.Hash.HashChains;
+package lib.Hash.Chains;
 
 
 import lib.Hash.DataItem;
