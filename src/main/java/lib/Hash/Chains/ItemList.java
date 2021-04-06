@@ -25,6 +25,7 @@ class Link {
 
 public class ItemList {
     Link Head;
+
     public void Insert( DataItem dataItem){
         if(this.isEmpty()){
             this.Head = new Link(dataItem, null);
@@ -39,38 +40,35 @@ public class ItemList {
         }
     }
     public  DataItem Find(int key){
-        if(this.isEmpty()){
-            return null;
-        }
-        else {
+        if (!this.isEmpty()) {
             Link Current = this.Head;
-            while (Current.next!=null){
-                if(Current.data.GetKey()==key)
+            while (Current.next != null) {
+                if (Current.data.GetKey() == key)
                     return Current.data;
                 else
                     Current = Current.next;
             }
-            return null;
         }
+        return null;
     }
 
     public DataItem Delete(int key) {
-        if(this.isEmpty()){
-            return null;
-        }
-        else {
+        if (!this.isEmpty()) {
             Link Current = this.Head;
-            while (Current.next!=null){
-                if(Current.next.data.GetKey()==key) {
+          //Не проверяется если первый эленент сожержит ключ
+
+
+
+            while (Current.next != null) {
+                if (Current.next.data.GetKey() == key) {
                     DataItem tmp = Current.next.data;
                     Current.next = Current.next.next;
                     return tmp;
-                }
-                else
+                } else
                     Current = Current.next;
             }
-            return null;
         }
+        return null;
     }
 
     public  boolean isEmpty(){
