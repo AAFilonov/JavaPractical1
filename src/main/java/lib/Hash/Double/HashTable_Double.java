@@ -9,28 +9,29 @@ public class HashTable_Double implements lib.Hash.HashTable {
     private final int SecondHashConstant;
 
 
-    public int HashFunc(int key) {
+    public int HashFunc(int key) throws Exception {
+        if (key<=0) throw new Exception("Invalid key");
         return key % maxSize;
     }
-
     private int HashFunc2(int key) {
 
         return SecondHashConstant - (key % SecondHashConstant);
     }
 
-    public void Insert(DataItem dataItem) {
+    public void Insert(DataItem dataItem) throws Exception {
         int index = GetNextEmptyCellIndex(dataItem.GetKey());
         hashArray[index] = dataItem;
     }
+
     //TODO избавиться от возврата -1
-    public DataItem Find(int key) {
+    public DataItem Find(int key) throws Exception {
         int index = GetCellIndexByKey(key);
         if (index != -1)
             return hashArray[index];
         else
             return null;
     }
-    public DataItem Delete(int key) {
+    public DataItem Delete(int key) throws Exception {
         int index = GetCellIndexByKey(key);
         if (index != -1) {
             DataItem cell = hashArray[index];
@@ -52,9 +53,10 @@ public class HashTable_Double implements lib.Hash.HashTable {
         nonItem = new DataItem(-1, "No data");
         SecondHashConstant = maxSize / 2;
     }
+    //TODO вынести подсчет индекса (beginIndex + step * i) % this.maxSize в отдельный метод
 
     //вспомогательные методы
-    private int GetNextEmptyCellIndex(int key) {
+    private int GetNextEmptyCellIndex(int key) throws Exception {
 
         int beginIndex = HashFunc(key);
         int step = HashFunc2(key);
@@ -72,7 +74,7 @@ public class HashTable_Double implements lib.Hash.HashTable {
         return cellIndex;
     }
 
-    private int GetCellIndexByKey(int key) {
+    private int GetCellIndexByKey(int key) throws Exception {
         int beginIndex = HashFunc(key);
         int step = HashFunc2(key);
 

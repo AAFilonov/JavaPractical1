@@ -41,13 +41,13 @@ public class ItemList {
     }
     public  DataItem Find(int key){
         if (!this.isEmpty()) {
+
             Link Current = this.Head;
-            while (Current.next != null) {
-                if (Current.data.GetKey() == key)
+            do {
+                if (Current.data.GetKey() == key) {
                     return Current.data;
-                else
-                    Current = Current.next;
-            }
+                } else Current = Current.next;
+            } while(Current!=null);
         }
         return null;
     }
@@ -56,17 +56,14 @@ public class ItemList {
         if (!this.isEmpty()) {
             Link Current = this.Head;
           //Не проверяется если первый эленент сожержит ключ
-
-
-
-            while (Current.next != null) {
-                if (Current.next.data.GetKey() == key) {
-                    DataItem tmp = Current.next.data;
-                    Current.next = Current.next.next;
-                    return tmp;
-                } else
+            do {
+                if (Current.data.GetKey() == key) {
+                    DataItem tmp = Current.data;
                     Current = Current.next;
-            }
+                    return tmp;
+
+                } else Current = Current.next;
+            } while(Current!=null);
         }
         return null;
     }
@@ -74,6 +71,7 @@ public class ItemList {
     public  boolean isEmpty(){
         return Head==null;
     }
+
 
     ItemList(){
         this.Head = null;

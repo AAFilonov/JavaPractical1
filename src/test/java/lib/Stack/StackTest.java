@@ -1,11 +1,28 @@
 package lib.Stack;
 
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ArgumentsProvider;
+import org.junit.jupiter.params.provider.ArgumentsSource;
+import org.junit.jupiter.params.provider.ValueSource;
 
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class StackTest {
+
+
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 3, 5, -3, 15, Integer.MAX_VALUE}) // six numbers
+    public void method1(int param) {
+        Stack myObject = new Stack();
+        myObject.Push(param);
+        Assertions.assertEquals(false, myObject.isEmpty());
+    }
+
+
+
 
     @Nested
     @DisplayName("Constructors Tests")

@@ -33,10 +33,17 @@ public class HashTable_Chains implements lib.Hash.HashTable {
         return maxSize;
     }
 
+
+    private void  Init(){
+        for (int i=0; i<this.maxSize; i++) {
+            this.hashList[i] = new ItemList();
+        }
+    }
     //конструкторы
-    HashTable_Chains(int maxSize){
+    public HashTable_Chains(int maxSize){
         this.maxSize = maxSize;
-        hashList = new ItemList[maxSize];
+        this.hashList = new ItemList[maxSize];
+        Init();
 
     }
 
