@@ -23,12 +23,12 @@ public class HashTable_Chains implements lib.Hash.HashTable {
         int index = HashFunc(key);
         return hashList[index].Find(key);
     }
-
     public DataItem Delete(int key) {
         int index = HashFunc(key);
         return   hashList[index].Delete(key);
 
     }
+
     public  int  GetMaxSize(){
         return maxSize;
     }

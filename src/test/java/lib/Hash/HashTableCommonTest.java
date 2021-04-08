@@ -19,25 +19,51 @@ public abstract class HashTableCommonTest {
 
 
     @ParameterizedTest
-    @ValueSource(ints = {1})
-        // six numbers
-    void testInsert_WhenInsertVal_ThenThrowNoException(int expected) throws Exception {
+    @ValueSource(ints = {1, 3,-1, -20})
+    void testInsertSingleItem(int expected) {
 
         DataItem dataItem = new DataItem(expected, "argument");
 
         hashTable.Insert(dataItem);
-
-
     }
 
+    @Test
+    void testInsertMultipleItems() {
 
+        DataItem dataItem1 = new DataItem(1, "argument");
+        DataItem dataItem2 = new DataItem(2, "argument");
+        DataItem dataItem3 = new DataItem(3, "argument");
 
+        hashTable.Insert(dataItem1);
+        hashTable.Insert(dataItem2);
+        hashTable.Insert(dataItem3);
+    }
+
+    @Test
+    void testInsertMultipleSameItems() {
+
+        DataItem dataItem1 = new DataItem(2, "argument");
+        DataItem dataItem2 = new DataItem(2, "argument");
+        DataItem dataItem3 = new DataItem(2, "argument");
+
+        hashTable.Insert(dataItem1);
+        hashTable.Insert(dataItem2);
+        hashTable.Insert(dataItem3);
+    }
 
 
     @ParameterizedTest
     @ValueSource(ints = {1, 3,-1, -20})
-        // six numbers
-    void test_find(int val) throws Exception {
+    void testFind_WhenNoItemsInserted(int val){
+
+        DataItem actual = hashTable.Find(val);
+
+        assertNull(actual);
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {1, 3,-1, -20})
+    void testFind_WhenSingleItemsInserted(int val){
         DataItem dataItemExpected = new DataItem(val, "argument");
         hashTable.Insert(dataItemExpected);
 
@@ -46,33 +72,61 @@ public abstract class HashTableCommonTest {
         Assertions.assertEquals(dataItemExpected, actual);
     }
 
+    @Test
+    void testFind_WhenManyItemsInserted(){
 
-    @ParameterizedTest
-    @ValueSource(ints = {1})
-        // six numbers
-    void test_delete_is_Ok(int expected) throws Exception {
-        DataItem dataItemExpected = new DataItem(expected, "argument");
+        DataItem dataItem1= new DataItem(1, "argument1");
+        DataItem dataItem2 = new DataItem(2, "argument2");
+        DataItem dataItem3 = new DataItem(3, "argument3");
+        DataItem dataItemExpected = new DataItem(6, "expected");
+        hashTable.Insert(dataItem1);
+        hashTable.Insert(dataItem2);
+        hashTable.Insert(dataItem3);
         hashTable.Insert(dataItemExpected);
 
-        DataItem actual = hashTable.Delete(expected);
+        DataItem actual = hashTable.Find(6);
 
         Assertions.assertEquals(dataItemExpected, actual);
     }
 
     @ParameterizedTest
-    @ValueSource(ints = {1})
-        // six numbers
-    void test_delete_really_delete(int value) throws Exception {
+    @ValueSource(ints = {1, 3,-1, -20})
+    void testDelete_WhenNoItemsInserted(int val){
 
-        DataItem dataItemExpected = new DataItem(value, "argument");
+        DataItem actual = hashTable.Delete(val);
+
+        assertNull(actual);
+    }
+
+    @Test
+    void testDelete_WhenSingleItemInserted() {
+
+        DataItem dataItemExpected = new DataItem(1, "argument");
         hashTable.Insert(dataItemExpected);
 
-        hashTable.Delete(value);
-        DataItem actual = hashTable.Find(value);
+        hashTable.Delete(1);
+        DataItem actual = hashTable.Find(1);
 
         Assertions.assertNull(actual);
     }
 
+    @Test
+    void testDelete_WhenManyItemsInserted(){
+
+        DataItem dataItem1= new DataItem(1, "argument1");
+        DataItem dataItem2 = new DataItem(2, "argument2");
+        DataItem dataItem3 = new DataItem(3, "argument3");
+        DataItem dataItemExpected = new DataItem(6, "expected");
+        hashTable.Insert(dataItem1);
+        hashTable.Insert(dataItem2);
+        hashTable.Insert(dataItem3);
+        hashTable.Insert(dataItemExpected);
+
+        hashTable.Delete(6);
+        DataItem actual = hashTable.Find(6);
+
+        assertNull(actual);
+    }
 
 }
 

@@ -1,46 +1,5 @@
 package lib.Hash.Chains;
-
-
 import lib.Hash.DataItem;
-
-import javax.xml.crypto.Data;
-
-class Link {
-    DataItem data;
-    Link next;
-    //инициализатор
-    {
-        next = null;
-    }
-    //конструкторы
-    Link(DataItem data){
-        this.data=data;
-    }
-
-
-
-    Link(DataItem data, Link next){
-        this.data=data;
-        this.next =next;
-    }
-
-
-    public DataItem DeleteNextByKey(int key) {
-        if(this.next == null){
-          return null;
-        }
-        else{
-            if(this.next.data.GetKey()==key){
-                DataItem tmp = this.next.data;
-                this.next =null;
-                return  tmp;
-            }
-            else
-                return  this.next.DeleteNextByKey(key);
-        }
-    }
-}
-
 
 public class ItemList {
     Link Head;
@@ -60,13 +19,7 @@ public class ItemList {
     }
     public  DataItem Find(int key){
         if (!this.isEmpty()) {
-
-            Link Current = this.Head;
-            do {
-                if (Current.data.GetKey() == key) {
-                    return Current.data;
-                } else Current = Current.next;
-            } while(Current!=null);
+            return this.Head.FindByKey(key);
         }
         return null;
     }
@@ -76,13 +29,14 @@ public class ItemList {
 
             DataItem tmp = CheckHead(key);
             if (tmp == null)
-            tmp  = this.Head.DeleteNextByKey(key);
+            tmp  = this.Head.DeleteInListByKey(key);
 
             return tmp;
 
         }
         return null;
     }
+
     DataItem CheckHead(int key){
         if(this.Head.data.GetKey()==key){
             DataItem tmp =this.Head.data;
@@ -91,13 +45,9 @@ public class ItemList {
         }
         else return null;
     }
-
-
-
     public  boolean isEmpty(){
         return Head==null;
     }
-
 
     ItemList(){
         this.Head = null;
