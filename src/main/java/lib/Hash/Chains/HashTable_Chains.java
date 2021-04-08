@@ -1,19 +1,10 @@
 package lib.Hash.Chains;
 
 import lib.Hash.DataItem;
+import lib.Hash.HashTable;
 
-public class HashTable_Chains implements lib.Hash.HashTable {
-    private final int maxSize;
+public class HashTable_Chains extends HashTable {
     ItemList[] hashList;
-
-
-    //операции хэш-таблицы
-
-    //преобразует значение ключа в индекс
-
-    public int HashFunc(int key) {
-        return (key*key) % maxSize;
-    }
 
     public void Insert(DataItem dataItem) {
         int index = HashFunc(dataItem.GetKey());
@@ -41,7 +32,7 @@ public class HashTable_Chains implements lib.Hash.HashTable {
     }
     //конструкторы
     public HashTable_Chains(int maxSize){
-        this.maxSize = maxSize;
+        super(maxSize);
         this.hashList = new ItemList[maxSize];
         Init();
 

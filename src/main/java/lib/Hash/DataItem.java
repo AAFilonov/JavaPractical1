@@ -8,11 +8,9 @@ public class DataItem {
     private int Key;
     public String Value;
 
-    public int GetKey(){
-        return this.Key;
-    }
-    int calculateKey( int limit){
-        char[] KeyS = this.Value.toLowerCase().toCharArray();
+
+    public static int calculateKey( String value ,int limit){
+        char[] KeyS = value.toLowerCase().toCharArray();
         int sum=0, i=0;
         for (char c :KeyS){
             int pow27 = (int) pow(27,i);
@@ -22,13 +20,20 @@ public class DataItem {
         sum %=limit;
        return sum;
     }
+    private void  SetCalculatedKey( int limit){
+        this.Key = calculateKey(this.Value, limit);
+    }
+
+    public int GetKey(){
+        return this.Key;
+    }
     //инициализатор
     {
         Value = "";
     }
     public DataItem(String value,int limit){
         this.Value= value;
-        this.Key = calculateKey(limit);
+        SetCalculatedKey(limit);
 
     }
     public DataItem(int key){

@@ -2,30 +2,25 @@ package lib.Hash.Double;
 
 import lib.Hash.DataItem;
 
-public class HashTable_Double implements lib.Hash.HashTable {
-    private final int maxSize;
+public class HashTable_Double extends lib.Hash.HashTable {
+
     DataItem[] hashArray;
     DataItem nonItem;
     private final int SecondHashConstant;
 
 
-    public int HashFunc(int key) {
 
-        return (key*key) % maxSize;
-    }
     private int HashFunc2(int key) {
 
         return SecondHashConstant - ((key*key) % SecondHashConstant);
     }
-
+    @Override
     public void Insert(DataItem dataItem) {
-      // if(isAlreadyInserted(dataItem.GetKey()))      throw new Exception("Exception: Item with key" + Integer.toString(dataItem.GetKey()) +" already exist") ;
-
         int index = GetNextEmptyCellIndex(dataItem.GetKey());
         hashArray[index] = dataItem;
     }
-
     //TODO избавиться от возврата -1
+    @Override
     public DataItem Find(int key)  {
         int index = GetCellIndexByKey(key);
         if (index != -1)
@@ -33,6 +28,7 @@ public class HashTable_Double implements lib.Hash.HashTable {
         else
             return null;
     }
+    @Override
     public DataItem Delete(int key)  {
         int index = GetCellIndexByKey(key);
         if (index != -1) {
@@ -44,15 +40,14 @@ public class HashTable_Double implements lib.Hash.HashTable {
             return null;
     }
 
-    public int GetMaxSize() {
-        return maxSize;
-    }
+
+
     public  boolean isAlreadyInserted(int key){
         return Find(key) != null;
     }
     //конструкторы
     public HashTable_Double(int maxSize) {
-        this.maxSize = maxSize;
+        super (maxSize);
         hashArray = new DataItem[maxSize];
         nonItem = new DataItem(-1, "No data");
         SecondHashConstant = maxSize / 2;
