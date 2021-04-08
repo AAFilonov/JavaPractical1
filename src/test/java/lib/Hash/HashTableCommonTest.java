@@ -89,6 +89,42 @@ public abstract class HashTableCommonTest {
         Assertions.assertEquals(dataItemExpected, actual);
     }
 
+
+    @Test
+    void testFind_WhenManySameItemsInserted_ThenReturnFirst(){
+
+        DataItem dataItem1= new DataItem(2, "argument1");
+        DataItem dataItem2 = new DataItem(2, "argument2");
+        DataItem dataItem3 = new DataItem(2, "argument3");
+
+        hashTable.Insert(dataItem1);
+        hashTable.Insert(dataItem2);
+        hashTable.Insert(dataItem3);
+
+
+        DataItem actual = hashTable.Find(2);
+
+        Assertions.assertEquals(dataItem1, actual);
+    }
+
+    @Test
+    void testFind_WhenManySameItemsInsertedAdeFirstDeleted_ThenReturnSecond(){
+
+        DataItem dataItem1= new DataItem(2, "argument1");
+        DataItem dataItem2 = new DataItem(2, "argument2");
+        DataItem dataItem3 = new DataItem(2, "argument3");
+
+        hashTable.Insert(dataItem1);
+        hashTable.Insert(dataItem2);
+        hashTable.Insert(dataItem3);
+        hashTable.Delete(2);
+
+        DataItem actual = hashTable.Find(2);
+
+        Assertions.assertEquals(dataItem2, actual);
+    }
+
+
     @ParameterizedTest
     @ValueSource(ints = {1, 3,-1, -20})
     void testDelete_WhenNoItemsInserted(int val){

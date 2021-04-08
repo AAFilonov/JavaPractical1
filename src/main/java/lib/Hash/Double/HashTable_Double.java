@@ -18,7 +18,9 @@ public class HashTable_Double implements lib.Hash.HashTable {
         return SecondHashConstant - ((key*key) % SecondHashConstant);
     }
 
-    public void Insert(DataItem dataItem)  {
+    public void Insert(DataItem dataItem) {
+      // if(isAlreadyInserted(dataItem.GetKey()))      throw new Exception("Exception: Item with key" + Integer.toString(dataItem.GetKey()) +" already exist") ;
+
         int index = GetNextEmptyCellIndex(dataItem.GetKey());
         hashArray[index] = dataItem;
     }
@@ -45,7 +47,9 @@ public class HashTable_Double implements lib.Hash.HashTable {
     public int GetMaxSize() {
         return maxSize;
     }
-
+    public  boolean isAlreadyInserted(int key){
+        return Find(key) != null;
+    }
     //конструкторы
     public HashTable_Double(int maxSize) {
         this.maxSize = maxSize;
