@@ -1,12 +1,10 @@
 package lib.Hash;
 
-import com.sun.org.apache.xpath.internal.objects.XString;
-
 import static java.lang.Math.pow;
 
 public class DataItem {
     private int Key;
-    public String Value;
+    private String Value;
 
 
     public static int calculateKey( String value ,int limit){
@@ -27,6 +25,10 @@ public class DataItem {
     public int GetKey(){
         return this.Key;
     }
+    public String GetValue(){
+        return this.Value;
+    }
+
     //инициализатор
     {
         Value = "";
