@@ -31,21 +31,11 @@ public abstract class HashTableCommonTest {
     }
 
 
-    @ParameterizedTest
-    @ValueSource(ints = {-1})
-        // six numbers
-    void test_insert(int expected) {
 
-        DataItem dataItem = new DataItem(expected, "argument");
-
-        Exception thrown = Assertions.assertThrows(Exception.class, () -> hashTable.Insert(dataItem));
-
-        assertEquals("Invalid key", thrown.getMessage());
-    }
 
 
     @ParameterizedTest
-    @ValueSource(ints = {1, 3})
+    @ValueSource(ints = {1, 3,-1, -20})
         // six numbers
     void test_find(int val) throws Exception {
         DataItem dataItemExpected = new DataItem(val, "argument");

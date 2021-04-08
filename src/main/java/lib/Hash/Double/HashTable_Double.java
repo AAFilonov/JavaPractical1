@@ -9,29 +9,29 @@ public class HashTable_Double implements lib.Hash.HashTable {
     private final int SecondHashConstant;
 
 
-    public int HashFunc(int key) throws Exception {
-        if (key<=0) throw new Exception("Invalid key");
-        return key % maxSize;
+    public int HashFunc(int key) {
+
+        return (key*key) % maxSize;
     }
     private int HashFunc2(int key) {
 
-        return SecondHashConstant - (key % SecondHashConstant);
+        return SecondHashConstant - ((key*key) % SecondHashConstant);
     }
 
-    public void Insert(DataItem dataItem) throws Exception {
+    public void Insert(DataItem dataItem)  {
         int index = GetNextEmptyCellIndex(dataItem.GetKey());
         hashArray[index] = dataItem;
     }
 
     //TODO избавиться от возврата -1
-    public DataItem Find(int key) throws Exception {
+    public DataItem Find(int key)  {
         int index = GetCellIndexByKey(key);
         if (index != -1)
             return hashArray[index];
         else
             return null;
     }
-    public DataItem Delete(int key) throws Exception {
+    public DataItem Delete(int key)  {
         int index = GetCellIndexByKey(key);
         if (index != -1) {
             DataItem cell = hashArray[index];
@@ -56,7 +56,7 @@ public class HashTable_Double implements lib.Hash.HashTable {
     //TODO вынести подсчет индекса (beginIndex + step * i) % this.maxSize в отдельный метод
 
     //вспомогательные методы
-    private int GetNextEmptyCellIndex(int key) throws Exception {
+    private int GetNextEmptyCellIndex(int key) {
 
         int beginIndex = HashFunc(key);
         int step = HashFunc2(key);
@@ -64,7 +64,7 @@ public class HashTable_Double implements lib.Hash.HashTable {
         int i = 0;
         int cellIndex = (beginIndex + step * i) % this.maxSize;
 
-        i++;
+
         cellIndex = (beginIndex + step * i) % this.maxSize;
         while (hashArray[cellIndex] != null) {
             i++;
@@ -74,7 +74,7 @@ public class HashTable_Double implements lib.Hash.HashTable {
         return cellIndex;
     }
 
-    private int GetCellIndexByKey(int key) throws Exception {
+    private int GetCellIndexByKey(int key)  {
         int beginIndex = HashFunc(key);
         int step = HashFunc2(key);
 

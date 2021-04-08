@@ -12,7 +12,7 @@ public class HashTable_Chains implements lib.Hash.HashTable {
     //преобразует значение ключа в индекс
 
     public int HashFunc(int key) {
-        return key % maxSize;
+        return (key*key) % maxSize;
     }
 
     public void Insert(DataItem dataItem) {

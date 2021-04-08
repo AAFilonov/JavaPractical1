@@ -3,6 +3,8 @@ package lib.Hash.Chains;
 
 import lib.Hash.DataItem;
 
+import javax.xml.crypto.Data;
+
 class Link {
     DataItem data;
     Link next;
@@ -15,11 +17,28 @@ class Link {
         this.data=data;
     }
 
+
+
     Link(DataItem data, Link next){
         this.data=data;
         this.next =next;
     }
 
+
+    public DataItem DeleteNextByKey(int key) {
+        if(this.next == null){
+          return null;
+        }
+        else{
+            if(this.next.data.GetKey()==key){
+                DataItem tmp = this.next.data;
+                this.next =null;
+                return  tmp;
+            }
+            else
+                return  this.next.DeleteNextByKey(key);
+        }
+    }
 }
 
 
@@ -54,19 +73,26 @@ public class ItemList {
 
     public DataItem Delete(int key) {
         if (!this.isEmpty()) {
-            Link Current = this.Head;
-          //Не проверяется если первый эленент сожержит ключ
-            do {
-                if (Current.data.GetKey() == key) {
-                    DataItem tmp = Current.data;
-                    Current = Current.next;
-                    return tmp;
 
-                } else Current = Current.next;
-            } while(Current!=null);
+            DataItem tmp = CheckHead(key);
+            if (tmp == null)
+            tmp  = this.Head.DeleteNextByKey(key);
+
+            return tmp;
+
         }
         return null;
     }
+    DataItem CheckHead(int key){
+        if(this.Head.data.GetKey()==key){
+            DataItem tmp =this.Head.data;
+            this.Head = this.Head.next;
+            return tmp;
+        }
+        else return null;
+    }
+
+
 
     public  boolean isEmpty(){
         return Head==null;
