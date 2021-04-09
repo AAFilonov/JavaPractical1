@@ -9,14 +9,15 @@ public class DataItem {
 
     public static int calculateKey( String value ,int limit){
         char[] KeyS = value.toLowerCase().toCharArray();
-        int sum=0, i=0;
+        int  i=0;
+        long sum=0;
         for (char c :KeyS){
             int pow27 = (int) pow(27,i);
             i++;
             sum +=  ((int) c)*pow27;
         }
         sum %=limit;
-       return sum;
+       return (int)sum;
     }
     private void  SetCalculatedKey( int limit){
         this.Key = calculateKey(this.Value, limit);

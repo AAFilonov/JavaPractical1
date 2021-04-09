@@ -47,8 +47,5 @@ public class Stack {
     public Stack(){
 
     }
-    public Stack(int key){
-        this.top= new Link(key);
-    }
 
 }

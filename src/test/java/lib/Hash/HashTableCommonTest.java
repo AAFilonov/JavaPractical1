@@ -16,8 +16,8 @@ public abstract class HashTableCommonTest {
     @Nested
     class InsertTests {
         @ParameterizedTest
-        @ValueSource(ints = {1, 3, -1, -20})
-        void testInsertSingleItem(int expected) {
+        @ValueSource(ints = {1, 3,0, -1, -20,Integer.MAX_VALUE})
+        void testInsert_WhenInsertSingleItem_ThenDoNotThrowAnyExceptions(int expected) {
 
             DataItem dataItem = new DataItem(expected, "argument");
 
@@ -25,7 +25,7 @@ public abstract class HashTableCommonTest {
         }
 
         @Test
-        void testInsertMultipleItems() {
+        void testInsert_WhenInsertMultipleItems_ThenDoNotThrowAnyExceptions() {
 
             DataItem dataItem1 = new DataItem(1, "argument");
             DataItem dataItem2 = new DataItem(2, "argument");
@@ -37,7 +37,7 @@ public abstract class HashTableCommonTest {
         }
 
         @Test
-        void testInsertMultipleSameItems() {
+        void testInsert_WhenInsertMultipleSameItems_ThenDoNotThrowAnyExceptions() {
 
             DataItem dataItem1 = new DataItem(2, "argument");
             DataItem dataItem2 = new DataItem(2, "argument");
