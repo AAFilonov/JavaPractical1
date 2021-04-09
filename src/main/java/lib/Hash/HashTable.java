@@ -14,11 +14,13 @@ public abstract class HashTable {
         DataItem dataItem = new DataItem(keyString,this.GetMaxSize());
         this.Insert(dataItem);
     }
+
     public abstract DataItem Find(int keyInteger);
     DataItem Find(String keyString){
         int keyInteger =  CountIntKey(keyString) ;
         return Find(keyInteger);
     }
+
     public abstract DataItem Delete(int keyInteger) ;
     DataItem Delete(String keyString){
         int keyInteger =  CountIntKey(keyString) ;
@@ -28,6 +30,7 @@ public abstract class HashTable {
     private int CountIntKey(String keyString){
         return DataItem.calculateKey(keyString,this.GetMaxSize());
     }
+
     public int GetMaxSize() {
         return maxSize;
     }

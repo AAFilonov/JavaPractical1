@@ -24,12 +24,12 @@ public class HashTable_Chains extends HashTable {
         return maxSize;
     }
 
-
     private void  Init(){
         for (int i=0; i<this.maxSize; i++) {
             this.hashList[i] = new ItemList();
         }
     }
+
     //конструкторы
     public HashTable_Chains(int maxSize){
         super(maxSize);

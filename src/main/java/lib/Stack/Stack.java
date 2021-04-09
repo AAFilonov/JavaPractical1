@@ -24,6 +24,7 @@ public class Stack {
         }
         return top.key;
     }
+
     public int Pop() throws Exception {
         if(top==null){
             throw new Exception("The stack is empty!");
@@ -34,7 +35,8 @@ public class Stack {
         return topKey;
     }
 
-    public boolean isEmpty(){
+    public boolean isEmpty()
+    {
         return this.top == null;
     }
 
@@ -42,7 +44,6 @@ public class Stack {
     {
        top = null;
     }
-
     //конструкторы
     public Stack(){
 

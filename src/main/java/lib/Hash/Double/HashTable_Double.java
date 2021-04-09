@@ -19,7 +19,6 @@ public class HashTable_Double extends lib.Hash.HashTable {
         int index = GetNextEmptyCellIndex(dataItem.GetKey());
         hashArray[index] = dataItem;
     }
-    //TODO избавиться от возврата -1
     @Override
     public DataItem Find(int key)  {
         int index = GetCellIndexByKey(key);
@@ -52,8 +51,8 @@ public class HashTable_Double extends lib.Hash.HashTable {
         nonItem = new DataItem(-1, "No data");
         SecondHashConstant = maxSize / 2;
     }
-    //TODO вынести подсчет индекса (beginIndex + step * i) % this.maxSize в отдельный метод
 
+    //TODO вынести подсчет индекса (beginIndex + step * i) % this.maxSize в отдельный метод
     //вспомогательные методы
     private int GetNextEmptyCellIndex(int key) {
 
@@ -87,7 +86,7 @@ public class HashTable_Double extends lib.Hash.HashTable {
                 cellIndex = (beginIndex + step * i) % this.maxSize;
             }
         }
-
+        //TODO избавиться от возврата -1
         return -1;
     }
 
